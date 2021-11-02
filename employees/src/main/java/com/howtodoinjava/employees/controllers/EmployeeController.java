@@ -24,33 +24,40 @@ public class EmployeeController {
   EmployeeService employeeService;
 
   @PostMapping("/employee")
-  Employee create(@RequestBody Employee employee)  {
+  public Employee create(@RequestBody Employee employee)  {
     return employeeService.save(employee);
   }
 
   @GetMapping("/employee")
-  Iterable<Employee> read() {
+  public Iterable<Employee> read() {
     return employeeService.findAll();
   }
+  
+  @GetMapping("/employee/{id}")
+  public Employee getEmp(@PathVariable Integer id) {
+	  System.out.println("getEmp: " + id);
+	  return employeeService.findById(id);
+  }
+
 
   @PutMapping("/employee")
-  Employee update(@RequestBody Employee employee) {
+  public Employee update(@RequestBody Employee employee) {
     return employeeService.save(employee);
   }
 
   @DeleteMapping("/employee/{id}")
-  void delete(@PathVariable Integer id) {
+  public void delete(@PathVariable Integer id) {
 	  employeeService.deleteById(id);
   }
 
   @GetMapping("/wrong")
-  Employee somethingIsWrong() {
+  public Employee somethingIsWrong() {
     throw new ValidationException("Something is wrong");
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(ValidationException.class)
-  String exceptionHandler(ValidationException e) {
+  public String exceptionHandler(ValidationException e) {
     return e.getMessage();
   }
 }

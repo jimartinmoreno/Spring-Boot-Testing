@@ -11,6 +11,7 @@ import com.howtodoinjava.employees.controllers.EmployeeController;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+//@SpringBootTest(classes = {EmployeesApplication.class})
 public class EmployeesApplicationTests {
 
 	@Autowired
@@ -18,6 +19,6 @@ public class EmployeesApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		Assertions.assertThat(employeeController).isNot(null);
+		Assertions.assertThat(employeeController).isNotNull();
 	}
 }

@@ -20,11 +20,18 @@ public class SystemTests {
 		Employee employee = new Employee("Lokesh", "Gupta");
 		ResponseEntity<Employee> entity = restTemplate.postForEntity(url, employee, Employee.class);
 
+		System.out.println("entity: " + entity);
+		System.out.println("entity.getBody: " + entity.getBody());
+		System.out.println("entity.getStatusCodeValue: " + entity.getStatusCodeValue());
+		System.out.println("entity.getClass: " + entity.getClass());
+
 		Employee[] employees = restTemplate.getForObject(url, Employee[].class);
-		Assertions.assertThat(employees).extracting(Employee::getFirstName).containsOnly("Lokesh");
+		// Assertions.assertThat(employees).extracting(Employee::getFirstName).containsOnly("Lokesh");
+		// Assertions.assertThat(employees).contains(entity.getBody());
 
 		restTemplate.delete(url + "/" + entity.getBody().getId());
 		Assertions.assertThat(restTemplate.getForObject(url, Employee[].class)).isEmpty();
+		Assertions.assertThat(restTemplate.getForObject(url, Employee[].class)).isNotEmpty();
 	}
 
 	@Test

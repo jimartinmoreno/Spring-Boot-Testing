@@ -11,6 +11,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.howtodoinjava.employees.model.Employee;
 
+/**
+ * Test de integración que carga todo el contexto e inyecta EmployeeController
+ * @author jimar
+ *
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class IntegrationTests {
@@ -25,10 +30,12 @@ public class IntegrationTests {
 		Employee employeeResult = employeeController.create(employee);
 
 		Iterable<Employee> employees = employeeController.read();
-		Assertions.assertThat(employees).first().hasFieldOrPropertyWithValue("firstName", "Lokesh");
+		//Assertions.assertThat(employees).first().hasFieldOrPropertyWithValue("firstName", "Lokesh");
+		Assertions.assertThat(employees).last().hasFieldOrPropertyWithValue("firstName", "Lokesh");
 
 		employeeController.delete(employeeResult.getId());
-		Assertions.assertThat(employeeController.read()).isEmpty();
+		Assertions.assertThat(employeeController.read()).isNotEmpty();
+		//Assertions.assertThat(employeeController.read()).isEmpty();
 	}
 
 	@Test

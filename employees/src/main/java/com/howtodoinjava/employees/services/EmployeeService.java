@@ -48,6 +48,19 @@ public class EmployeeService {
 		}
 	}
 
+	public Employee findById(Integer id) {
+		System.out.println("findById - id: " + id);
+		Optional<Employee> employee = employeeRepository.findById(id);
+		System.out.println("findById - employee: " + employee);
+		System.out.println("findById - employee.isPresent: " + employee.isPresent());
+		if (employee.isPresent()) {
+			System.out.println("findById - employee.get(): " + employee.get());
+			return employee.get();
+		} else {
+			throw new RecordNotFoundException("No employee record exist for given id");
+		}
+	}
+	
 	public void deleteById(Integer id) {
 		Optional<Employee> employee = employeeRepository.findById(id);
 
